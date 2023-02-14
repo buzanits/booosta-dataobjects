@@ -83,4 +83,10 @@ trait webapp
   {
     if(!is_object($obj) || !$obj->is_valid()) $this->raise_error($err);
   }
+  
+  protected function testDataobject($obj)
+  {
+    if(!is_object($obj) || !$obj->is_valid()) return false;
+    return true;
+  }
 }
