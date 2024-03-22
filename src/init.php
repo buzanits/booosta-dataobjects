@@ -1,8 +1,9 @@
 <?php
 namespace booosta\dataobjects;
 
-\booosta\Framework::add_module_trait('base', 'dataobjects\base');
-\booosta\Framework::add_module_trait('webapp', 'dataobjects\webapp');
+use \booosta\Framework as b;
+b::add_module_trait('base', 'dataobjects\base');
+b::add_module_trait('webapp', 'dataobjects\webapp');
 
 trait base
 {
@@ -14,7 +15,7 @@ trait base
     $add_to_cache = false;
     $cache_hit = false;
 
-    if(!class_exists("\\booosta\\dataobjects\\$table")):
+    if(!class_exists("\\booosta\\dataobjects\\C__$table")):
       // look into cache
       if($this->config('use_dataobject_cache')):
         $cache_dir = $this->real_basedir() . '/local/dataobjectcache/';
@@ -31,14 +32,14 @@ trait base
       if(!$cache_hit):
         $definer = $this->makeInstance("\\booosta\\dataobjects\\Classdefiner");
         $code = $definer->compose_classes($table);
-        #\booosta\debug($code);
+        #b::debug($code);
         eval($code);
       endif;
 
       if($add_to_cache) file_put_contents("$cache_dir/$table.cache.php", "<?php\n" . $code . "\n?".'>');
     endif;
 
-    $obj = $this->makeInstance("\\booosta\\dataobjects\\$table", $init);
+    $obj = $this->makeInstance("\\booosta\\dataobjects\\C__$table", $init);
     return $obj;
   }
 
