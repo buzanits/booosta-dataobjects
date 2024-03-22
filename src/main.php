@@ -154,7 +154,7 @@ class Classdefiner extends \booosta\base\Base
       $field_arr = []; $all_field_arr = []; $id_field_arr = [];
       $nullfields = [];
  
-      $classname = $tablename;
+      $classname = "C__$tablename";
  
       $ds .= "class $classname extends Tableclass\n{\n";
   
